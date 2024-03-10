@@ -1,11 +1,22 @@
 import React from 'react';
-import { Form, Button } from 'antd';
+import { Form, Button, message } from 'antd';
 import { Link } from 'react-router-dom';
+import { RegisterUser } from '../apicalls/users';
 
 const Register = () => {
 
-  const onFinish = () =>{
-    console.log("User Registered!")
+  const onFinish = async (values) => {
+    try {
+      const response = await RegisterUser(values)
+      if (response.success) {
+        message.success(response.message)
+      }
+      else {
+        message.error(response.message)
+      }
+    } catch (error) {
+      message.error(error)
+    }
   }
   return (
     <div className="flex justify-center h-screen items-center bg-primary">

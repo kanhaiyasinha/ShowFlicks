@@ -1,10 +1,23 @@
 import React from 'react';
-import { Form, Button } from 'antd';
+import { Form, Button, message } from 'antd';
 import { Link } from 'react-router-dom';
+import { LoginUser } from '../apicalls/users';
 
 const Login = () => {
-  const onFinish = () =>{
-    console.log("User Logged in!")
+  const onFinish = async(values) =>{
+    try {
+      const response = await LoginUser(values)
+      if (response.success) {
+        message.success(response.message)
+        localStorage.setItem('token', response.data)
+        window.location.href = "/"
+      }
+      else {
+        message.error(response.message)
+      }
+    } catch (error) {
+      message.error(error)
+    }
   }
   return (
     <div className="flex justify-center h-screen items-center bg-primary">
