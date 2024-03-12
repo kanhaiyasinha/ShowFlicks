@@ -3,10 +3,10 @@ import { useNavigate } from 'react-router-dom';
 import { GetCurrentUser } from '../apicalls/users';
 import {useDispatch, useSelector} from 'react-redux'
 import {ShowLoading, HideLoading} from '../redux/loadersSlice'
-import {SetUser} from '../redux/loadersSlice'
+import {SetUser} from '../redux/usersSlice'
 import { message } from 'antd';
 
-const ProtectedRoute = () => {
+const ProtectedRoute = ({children}) => {
 
     const navigate = useNavigate()
     const dispatch = useDispatch()
@@ -60,7 +60,7 @@ const ProtectedRoute = () => {
                     <div>
                         <h1 className="text-2xl text-white cursor-pointer"
                             onClick={() => navigate("/")}
-                        >Book My Show</h1>
+                        >ShowFlicks</h1>
                     </div>
 
                     <div className="bg-white p-1 flex gap-1">
