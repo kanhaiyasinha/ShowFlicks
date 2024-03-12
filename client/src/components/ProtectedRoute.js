@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { GetCurrentUser } from '../apicalls/users';
-import {useDispatch} from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 import {ShowLoading, HideLoading} from '../redux/loadersSlice'
 import {SetUser} from '../redux/loadersSlice'
 import { message } from 'antd';
@@ -10,6 +10,7 @@ const ProtectedRoute = () => {
 
     const navigate = useNavigate()
     const dispatch = useDispatch()
+    const user = useSelector( state => state.users)
     const getCurrentUser = async () => {
         try {
             //show loader
@@ -34,8 +35,11 @@ const ProtectedRoute = () => {
             }
         } catch (error) {
             //hide loader
+            dispatch(HideLoading())
             //dispatch null to userreducer
+            dispatch(SetUser(null))
             //redirect to login page
+            navigate('/login')
         }
     }
 
