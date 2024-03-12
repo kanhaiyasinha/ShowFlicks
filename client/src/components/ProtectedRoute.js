@@ -16,7 +16,7 @@ const ProtectedRoute = ({children}) => {
             //show loader
             dispatch(ShowLoading())
             const response = await GetCurrentUser()
-            console.log(response)
+            //console.log(response)
             //hide loader
             dispatch(HideLoading())
             if (response.success) {

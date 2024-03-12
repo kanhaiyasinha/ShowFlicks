@@ -1,16 +1,24 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Form, Button, message } from 'antd';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { LoginUser } from '../apicalls/users';
 
 const Login = () => {
+
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    if(localStorage.getItem('token')){
+      navigate('/')
+    }
+  })
   const onFinish = async(values) =>{
     try {
       const response = await LoginUser(values)
       if (response.success) {
         message.success(response.message)
         localStorage.setItem('token', response.data)
-        window.location.href = "/"
+        navigate('/')
       }
       else {
         message.error(response.message)
