@@ -28,5 +28,5 @@ export const GetCurrentUser = async () => {
         return response.data
     } catch (error) {
         return error
-    }
+    }  
 }

@@ -5,6 +5,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import store from './redux/store';
 import { Provider } from 'react-redux'; // Correct import statement for Provider
+import 'remixicon/fonts/remixicon.css'
 
 ReactDOM.render(
   <Provider store={store}>
