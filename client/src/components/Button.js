@@ -1,16 +1,16 @@
 import React from "react";
 
 function Button({ title, onClick, variant, disabled, fullWidth, type }) {
-    let className = "bg-primary p-1 text-white";
+    let className = "bg-primary text-white px-4 py-2 rounded"; // Base button styles
 
     if (fullWidth) {
         className += " w-full";
     }
+
     if (variant === "outlined") {
-        className = className.replace(
-            "bg-primary",
-            "border border-primary text-primary bg-white"
-        );
+        className = className.replace("bg-primary", "bg-white");
+        className = className.replace("text-white", "text-primary");
+        className += " border border-primary"; // Additional styles for outlined variant
     }
 
     return (
@@ -19,6 +19,7 @@ function Button({ title, onClick, variant, disabled, fullWidth, type }) {
             type={type}
             onClick={onClick}
             disabled={disabled}
+            style={{ marginBottom: '8px', marginRight: '8px' }} // Distance between buttons
         >
             {title}
         </button>
