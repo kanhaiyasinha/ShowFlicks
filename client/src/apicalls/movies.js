@@ -1,6 +1,6 @@
-const {axiosInstance} = require('.')
+const { axiosInstance } = require('.')
 
-//Get all movies
+// Get all movies
 
 export const GetAllMovies = async () => {
     try {
@@ -8,28 +8,43 @@ export const GetAllMovies = async () => {
         return response.data
     } catch (error) {
         return error
-    }
+    }    
 }
 
-//Add Movies
+export const GetMovieById = async (movieId) => {
+    try {
+        console.log(movieId)
+        const response = await axiosInstance.get(`/api/movies/getMovieById/${movieId}`)
+        return response.data
+    } catch (error) {
+        return error
+    }    
+}
 
 export const AddMovie = async (payload) => {
     try {
-        const response = await axiosInstance.post('/api/movies/add', payload)
+        const response = await axiosInstance.post("api/movies/add", payload)
         return response.data
-    } catch (error){
+    } catch (error) {
         return error
     }
 }
 
-//Update Movies
+export const DeleteMovie = async (payload) => {
+    try {
+        console.log(payload)
+        const response = await axiosInstance.post("api/movies/delete", payload)
+        return response.data
+    } catch (error) {
+        return error
+    }
+}
 
 export const UpdateMovie = async (payload) => {
     try {
-        const response = await axiosInstance.post('/api/movies/update', payload)
+        const response = await axiosInstance.put("api/movies/update", payload)
         return response.data
-    } catch (error){
+    } catch (error) {
         return error
     }
 }
-

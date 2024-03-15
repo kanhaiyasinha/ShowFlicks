@@ -1,5 +1,5 @@
 import React from "react";
-import { Modal, Form, Row, Col, Input, Select, DatePicker,message } from 'antd';
+import { Modal, Form, Row, Col, Input, Select, message } from 'antd';
 import Button from "../../components/Button"; // Assuming you have a CustomButton component
 import { useDispatch } from "react-redux";
 import { HideLoading, ShowLoading } from "../../redux/loadersSlice";
@@ -26,29 +26,29 @@ function MovieForm({
 
     const onFinish = async (values) => {
         try {
-          dispatch(ShowLoading());
-          let response = null;
+            dispatch(ShowLoading());
+            let response = null;
 
-          if (formType === "add") {
-            response = await AddMovie(values);
-          } else {
-            response = await UpdateMovie({
-              ...values,
-              movieId: selectedMovie._id,
-            });
-          }
+            if (formType === "add") {
+                response = await AddMovie(values);
+            } else {
+                response = await UpdateMovie({
+                    ...values,
+                    movieId: selectedMovie._id,
+                });
+            }
 
-          if (response.success) {
-            getData();
-            message.success(response.message);
-            setShowMovieFormModal(false);
-          } else {
-            message.error(response.message);
-          }
-          dispatch(HideLoading());
+            if (response.success) {
+                getData();
+                message.success(response.message);
+                setShowMovieFormModal(false);
+            } else {
+                message.error(response.message);
+            }
+            dispatch(HideLoading());
         } catch (error) {
-          dispatch(HideLoading());
-          message.error(error.message);
+            dispatch(HideLoading());
+            message.error(error.message);
         }
     };
 
@@ -102,7 +102,7 @@ function MovieForm({
 
                     <Col xs={24} sm={12} md={8} lg={8} xl={8}>
                         <Form.Item label="Movie Release Date" name="releaseDate">
-                            <DatePicker style={{ width: '100%' }} />
+                            <input type="date" />
                         </Form.Item>
                     </Col>
 
@@ -125,7 +125,7 @@ function MovieForm({
                     </Col>
                 </Row>
 
-                <div style={{ textAlign: 'right'}}>
+                <div style={{ textAlign: 'right' }}>
                     <Button
                         title="Cancel"
                         variant="outlined"
