@@ -76,6 +76,7 @@ router.post("/getTheatresByMovieId", async (req, res) => {
   }
 });
 
+//Get All Theatres to approve or delete request
 router.get("/getAllTheatres", async (req, res) => {
   try {
     const theatres = await Theatre.find().populate("owner");
