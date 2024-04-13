@@ -10,14 +10,15 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { HideLoading, ShowLoading } from "../../redux/loadersSlice";
 import { message, Table } from "antd";
-//import Shows from "./Shows";
+import Shows from "./Shows";
 
 function TheatresList() {
   const { user } = useSelector((state) => state.users);
   const [showTheatreFormModal = false, setShowTheatreFormModal] =
     useState(false);
   const [selectedTheatre = null, setSelectedTheatre] = useState(null);
-  const [formType = "add", setFormType] = useState("add");
+
+  const [formType, setFormType] = useState("add");
   const [theatres, setTheatres] = useState([]);
 
   const [openShowsModal = false, setOpenShowsModal] = useState(false);
@@ -135,8 +136,9 @@ function TheatresList() {
           variant="outlined"
           title="Add Theatre"
           onClick={() => {
-            setFormType("add");
+            
             setShowTheatreFormModal(true);
+            setFormType("add");
           }}
         />
       </div>
@@ -155,13 +157,13 @@ function TheatresList() {
         />
       )}
 
-      {/* {openShowsModal && (
+      {openShowsModal && (
         <Shows
           openShowsModal={openShowsModal}
           setOpenShowsModal={setOpenShowsModal}
           theatre={selectedTheatre}
         />
-      )} */}
+      )}
     </div>
   );
 }
