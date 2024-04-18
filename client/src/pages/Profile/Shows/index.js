@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { Col, Form, Modal, Row, Table, message } from "antd";
+//import { Col, Form, Modal, Row, Table, message } from "antd";
+import { Table, Modal, Form, Row, Col, Input, Select, message } from 'antd';
 import Button from "../../../components/Button";
 import { GetAllShowsByTheatre, AddShow, DeleteShow } from "../../../apicalls/shows";
 import { HideLoading, ShowLoading } from "../../../redux/loadersSlice";
@@ -12,6 +13,7 @@ const Shows = ({ openShowsModal, setOpenShowsModal, theatre }) => {
   const [shows, setShows] = useState([]);
   const [movies, setMovies] = useState([]);
   const dispatch = useDispatch();
+  const { Option } = Select;
 
   const getData = async () => {
     try {
@@ -168,89 +170,92 @@ const Shows = ({ openShowsModal, setOpenShowsModal, theatre }) => {
       {view === "table" && <Table columns={columns} dataSource={shows} />}
 
       {view === "form" && (
-        <Form layout="vertical" onFinish={handleAddShow}>
-          <Row gutter={[16, 16]}>
-            <Col span={8}>
-              <Form.Item
-                label="Show Name"
-                name="name"
-                rules={[{ required: true, message: "Please input show name!" }]}
-              >
-                <input />
-              </Form.Item>
-            </Col>
-            <Col span={8}>
-              <Form.Item
-                label="Date"
-                name="date"
-                rules={[{ required: true, message: "Please input show date!" }]}
-              >
-                <input type="date" min={new Date()} />
-              </Form.Item>
-            </Col>
+  <Form layout="vertical" onFinish={handleAddShow}>
+    <Row gutter={[16, 16]}>
+      <Col xs={24} sm={8}>
+        <Form.Item
+          label="Show Name"
+          name="name"
+          rules={[{ required: true, message: "Please input show name!" }]}
+        >
+          <Input />
+        </Form.Item>
+      </Col>
+      <Col xs={24} sm={8}>
+        <Form.Item
+          label="Date"
+          name="date"
+          rules={[{ required: true, message: "Please input show date!" }]}
+        >
+          <Input type="date" min={moment().format("YYYY-MM-DD")} />
+        </Form.Item>
+      </Col>
 
-            <Col span={8}>
-              <Form.Item
-                label="Time"
-                name="time"
-                rules={[{ required: true, message: "Please input show time!" }]}
-              >
-                <input type="time" />
-              </Form.Item>
-            </Col>
+      <Col xs={24} sm={8}>
+        <Form.Item
+          label="Time"
+          name="time"
+          rules={[{ required: true, message: "Please input show time!" }]}
+        >
+          <Input type="time" />
+        </Form.Item>
+      </Col>
 
-            <Col span={8}>
-              <Form.Item
-                label="Movie"
-                name="movie"
-                rules={[{ required: true, message: "Please select movie!" }]}
-              >
-                <select>
-                  <option value="">Select Movie</option>
-                  {movies.map((movie) => (
-                    <option value={movie._id}>{movie.title}</option>
-                  ))}
-                </select>
-              </Form.Item>
-            </Col>
+      <Col xs={24} sm={8}>
+        <Form.Item
+          label="Movie"
+          name="movie"
+          rules={[{ required: true, message: "Please select movie!" }]}
+        >
+          <Select>
+            <Option value="">Select Movie</Option>
+            {movies.map((movie) => (
+              <Option key={movie._id} value={movie._id}>
+                {movie.title}
+              </Option>
+            ))}
+          </Select>
+        </Form.Item>
+      </Col>
 
-            <Col span={8}>
-              <Form.Item
-                label="Ticket Price"
-                name="ticketPrice"
-                rules={[
-                  { required: true, message: "Please input ticket price!" },
-                ]}
-              >
-                <input type="number" />
-              </Form.Item>
-            </Col>
+      <Col xs={24} sm={8}>
+        <Form.Item
+          label="Ticket Price"
+          name="ticketPrice"
+          rules={[
+            { required: true, message: "Please input ticket price!" },
+          ]}
+        >
+          <Input type="number" />
+        </Form.Item>
+      </Col>
 
-            <Col span={8}>
-              <Form.Item
-                label="Total Seats"
-                name="totalSeats"
-                rules={[
-                  { required: true, message: "Please input total seats!" },
-                ]}
-              >
-                <input type="number" />
-              </Form.Item>
-            </Col>
-          </Row>
+      <Col xs={24} sm={8}>
+        <Form.Item
+          label="Total Seats"
+          name="totalSeats"
+          rules={[
+            { required: true, message: "Please input total seats!" },
+          ]}
+        >
+          <Input type="number" />
+        </Form.Item>
+      </Col>
+    </Row>
 
-          <div className="flex justify-end gap-1">
-            <Button
-              variant="outlined"
-              title="Cancel"
-              onClick={() => {
-                setView("table");
-              }}
-            />
-            <Button variant="contained" title="SAVE" type="submit" />
-          </div>
-        </Form>
-      )}
+    <div style={{ textAlign: 'right' }}>
+      <Button
+        variant="outlined"
+        title="Cancel"
+        onClick={() => {
+          setView("table");
+        }}
+      />
+      <Button variant="contained" title="SAVE" type="submit" />
+    </div>
+  </Form>
+)}
+
     </Modal>
   );
 };
