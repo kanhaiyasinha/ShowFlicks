@@ -32,7 +32,20 @@ const TheatresForMovie = () => {
   }
 
   const getTheatres = async () => {
-
+    const movieId = params.movieId
+    try {
+      dispatch(ShowLoading());
+      const response = await GetTheatresByMovie({date, movie : movieId});
+      if (response.success) {
+        //setMovie(response.data);
+      } else {
+        message.error(response.message);
+      }
+      dispatch(HideLoading());
+    } catch (error) {
+      dispatch(HideLoading());
+      message.error(error.message);
+    }
   }
 
   useEffect(() => {
@@ -43,6 +56,10 @@ const TheatresForMovie = () => {
   useEffect( () =>{
     getTheatres();
   },[])
+
+  useEffect( () =>{
+    getTheatres();
+  },[date])
 
   return (
     <div>

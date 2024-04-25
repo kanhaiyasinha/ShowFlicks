@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const Theatre = require("../models/theatreModel");
-//const Show = require("../models/showModel");
+const Show = require("../models/showModel");
 
 router.post("/add", async (req, res) => {
   try {
@@ -41,8 +41,6 @@ router.post("/getTheatresByMovieId", async (req, res) => {
     const { movie, date } = req.body;
     const shows = await Show.find({ movie, date }).populate("theatre");
 
-    
-
     // get unique theatres
     let uniqueTheatres = [];
     shows.forEach((show) => {
@@ -54,10 +52,10 @@ router.post("/getTheatresByMovieId", async (req, res) => {
         const showsForThisTheatre = shows.filter(
           (showObj) => showObj.theatre._id === show.theatre._id
         );
-        console.log(show)
+        console.log(shows)
         uniqueTheatres.push({
-            ...show.theatre._doc,
-            shows: showsForThisTheatre
+          ...show.theatre._doc,
+          shows: showsForThisTheatre
         })
       }
     });
@@ -75,6 +73,8 @@ router.post("/getTheatresByMovieId", async (req, res) => {
     });
   }
 });
+
+
 
 //Get All Theatres to approve or delete request
 router.get("/getAllTheatres", async (req, res) => {
