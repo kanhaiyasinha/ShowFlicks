@@ -74,7 +74,24 @@ router.post("/getTheatresByMovieId", async (req, res) => {
   }
 });
 
-
+//get show by id
+router.post('/getShowById', async(req,res)=>{
+  try{
+      const show = await Show.findById(req.body.showId)
+      .populate("movie")
+      .populate("theatre")
+      res.send({
+          success:true,
+          message:"Show fetched",
+          data:show,
+      })
+  }catch(err){
+      res.send({
+          success:false,
+          message:err.message
+      })
+  }
+})
 
 //Get All Theatres to approve or delete request
 router.get("/getAllTheatres", async (req, res) => {

@@ -55,3 +55,12 @@ export const UpdateTheatre = async (payload) => {
         return error
     }
 }
+
+export const GetShowById = async (payload) => {
+    try {
+        const response = await axiosInstance.post(`/api/theatre/getShowById`, payload)
+        return response.data
+    } catch (error) {
+        return error
+    }
+}
